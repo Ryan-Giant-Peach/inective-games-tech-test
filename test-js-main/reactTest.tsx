@@ -5,7 +5,7 @@
  * - These are a theoretical questions, there is no need to install packages or run the code.
  */
 
-import React from 'react'
+import React from "react";
 
 /**
  * TEST 1
@@ -18,15 +18,15 @@ import React from 'react'
  */
 
 interface ITest1ComponentProps {
-  name: string
-  age: number
+  name: string;
+  age: number;
 }
 
 export const Test1Component = (props: ITest1ComponentProps) => {
   return (
-    <div style={{ color: props.age >= 18 ? 'blue' : 'red' }}>{props.name}</div>
-  )
-}
+    <div style={{ color: props.age >= 18 ? "blue" : "red" }}>{props.name}</div>
+  );
+};
 
 /**
  * TEST 2
@@ -52,28 +52,28 @@ const getAge = async (name: string): Promise<number> => {
   // This function calls an API and returns
   return new Promise((resolve, reject) => {
     return setTimeout(() => {
-      resolve(Math.floor(Math.random() * 40))
-    }, 500)
-  })
-}
+      resolve(Math.floor(Math.random() * 40));
+    }, 500);
+  });
+};
 
 interface ITest2ComponentProps {
-  name: string
+  name: string;
 }
 
 export const Test2Component = (props: ITest2ComponentProps) => {
-  const [age, setAge] = React.useState<number>(undefined)
+  const [age, setAge] = React.useState<number>(undefined);
 
   useEffect(() => {
-    getAge(props.name).then((age) => setAge(age))
-  }, [props.name])
+    getAge(props.name).then((age) => setAge(age));
+  }, [props.name]);
   if (age === undefined) {
-    return <div>finding age for {props.name}...</div>
+    return <div>finding age for {props.name}...</div>;
   }
 
   return (
     <div
-      style={{ color: age >= 18 ? 'blue' : 'red' }}
+      style={{ color: age >= 18 ? "blue" : "red" }}
     >{`${props.name} is ${age} years old`}</div>
-  )
-}
+  );
+};

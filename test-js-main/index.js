@@ -1,5 +1,5 @@
 // We import the object from the data file. Inside that object there is a function to get players data
-const data = require('./data')
+const data = require("./data");
 
 /**
  * Test 1
@@ -13,16 +13,16 @@ const data = require('./data')
 
 // Your code
 
-const players = data.getPlayers()
+const players = data.getPlayers();
 
-console.log('-- TEST 1 --')
+console.log("-- TEST 1 --");
 
 players.map((player, index) => {
-  console.log(`PLAYER ${index + 1}`)
-  console.log(`NAME: ${player.name}`)
-  console.log(`LASTNAME: ${player.lastname}`)
-  console.log(`POSITION: ${player.position}`)
-})
+  console.log(`PLAYER ${index + 1}`);
+  console.log(`NAME: ${player.name}`);
+  console.log(`LASTNAME: ${player.lastname}`);
+  console.log(`POSITION: ${player.position}`);
+});
 
 /**
  * Test 2
@@ -31,12 +31,12 @@ players.map((player, index) => {
 
 // Your code
 
-console.log('-- TEST 2 --')
+console.log("-- TEST 2 --");
 
 const playerNames = players
   .sort((a, b) => b.name.length - a.name.length)
-  .map((player) => player.name)
-console.log(playerNames)
+  .map((player) => player.name);
+console.log(playerNames);
 
 /**
  * Test 3
@@ -48,11 +48,12 @@ console.log(playerNames)
 
 // Your code
 
-console.log('-- TEST 3 --')
+console.log("-- TEST 3 --");
 
 const averageGoalsPerMatch =
-  players.reduce((acc, player) => acc + parseInt(player.scoringChance), 0) / 100
-console.log('Goals per match: ', averageGoalsPerMatch.toFixed(2))
+  players.reduce((acc, player) => acc + parseInt(player.scoringChance), 0) /
+  100;
+console.log("Goals per match: ", averageGoalsPerMatch.toFixed(2));
 
 /**
  * Test 4
@@ -61,14 +62,14 @@ console.log('Goals per match: ', averageGoalsPerMatch.toFixed(2))
 
 // Your code
 
-console.log('-- TEST 4 --')
+console.log("-- TEST 4 --");
 
 const findPlayerByName = (name) => {
-  const player = players.find((player) => player.name === name)
-  console.log(player?.position || `Player "${name}" not found`)
-}
+  const player = players.find((player) => player.name === name);
+  console.log(player?.position || `Player "${name}" not found`);
+};
 
-findPlayerByName('Ethan')
+findPlayerByName("Ethan");
 
 /**
  * Test 5
@@ -81,24 +82,26 @@ findPlayerByName('Ethan')
 
 // Your code
 
-console.log('-- TEST 5 --')
+console.log("-- TEST 5 --");
 
 const playGame = () => {
-  const randomisedPlayers = players.sort(() => Math.random() - 0.5)
+  const randomisedPlayers = players.sort(() => Math.random() - 0.5);
 
-  const teamA = randomisedPlayers.slice(0, randomisedPlayers.length / 2)
-  const teamB = randomisedPlayers.slice(randomisedPlayers.length / 2)
+  const teamA = randomisedPlayers.slice(0, randomisedPlayers.length / 2);
+  const teamB = randomisedPlayers.slice(randomisedPlayers.length / 2);
 
   const teamAScoringChancePerGame =
-    teamA.reduce((acc, player) => acc + parseInt(player.scoringChance), 0) / 100
+    teamA.reduce((acc, player) => acc + parseInt(player.scoringChance), 0) /
+    100;
   const teamBScoringChancePerGame =
-    teamB.reduce((acc, player) => acc + parseInt(player.scoringChance), 0) / 100
+    teamB.reduce((acc, player) => acc + parseInt(player.scoringChance), 0) /
+    100;
 
-  const teamAScore = Math.round(teamAScoringChancePerGame)
-  const teamBScore = Math.round(teamBScoringChancePerGame)
+  const teamAScore = Math.round(teamAScoringChancePerGame);
+  const teamBScore = Math.round(teamBScoringChancePerGame);
 
-  console.log(`Team A score: ${teamAScore}`)
-  console.log(`Team B score: ${teamBScore}`)
-}
+  console.log(`Team A score: ${teamAScore}`);
+  console.log(`Team B score: ${teamBScore}`);
+};
 
-playGame()
+playGame();
