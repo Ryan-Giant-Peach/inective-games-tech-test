@@ -24,9 +24,7 @@ interface ITest1ComponentProps {
 
 export const Test1Component = (props: ITest1ComponentProps) => {
     return (
-        <div>
-            {props.age >= 18 ? <span style={{color: "blue"}}>{props.name}</span> : <span style={{color: "red"}}>{props.name}</span>}
-        </div>
+           <div style={{color: props.age >= 18 ? "blue" : "red"}}>{props.name}</div>
     )
 }
 
@@ -67,8 +65,18 @@ interface ITest2ComponentProps {
 
 export const Test2Component = (props: ITest2ComponentProps) => {
 
+    const [age, setAge] = React.useState<number>(undefined);
+
     useEffect(() => {
-    }, []);
+        getAge(props.name).then((age) => setAge(age));
+    }, [props.name]);
+    if (age === undefined) {
+        return <div>finding age for {props.name}...</div>
+    }
+
+    return (
+        <div style={{color: age >= 18 ? "blue" : "red"}}>{`${props.name} is ${age} years old`}</div>
+    )
     
     
 }

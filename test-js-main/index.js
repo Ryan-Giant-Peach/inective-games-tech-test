@@ -1,6 +1,7 @@
 // We import the object from the data file. Inside that object there is a function to get players data
 const data = require("./data");
 
+
 /**
  * Test 1
  * Write a function to log in the console the players data with this format:
@@ -14,9 +15,15 @@ const data = require("./data");
  // Your code
 
  const players = data.getPlayers();
-//  console.log(players);
 
 
+//     players.map((player, index) => {
+//         console.log(`PLAYER ${index + 1}`);
+//         console.log(`NAME: ${player.name}`);
+//         console.log(`LASTNAME: ${player.lastname}`);
+//         console.log(`POSITION: ${player.position}`);
+//     }
+// );
 
 /**
  * Test 2
@@ -25,9 +32,10 @@ const data = require("./data");
 
 // Your code
 
-const playerNames = players.map((player) => player.name);
-// console.log(playerNames);
-
+// const playerNames = players
+//     .sort((a, b) => b.name.length - a.name.length)
+//     .map((player) => player.name);
+//     console.log(playerNames);
 
 
 /**
@@ -40,11 +48,8 @@ const playerNames = players.map((player) => player.name);
 
 // Your code
 
-const totalScoringChance = players.reduce((acc, player) => acc + player.scoringChance, 0);
-const averageScoringChance = totalScoringChance / players.length;
-const averageGoals = averageScoringChance / 100;
-// console.log(averageGoals);
-
+// const averageGoalsPerMatch = players.reduce((acc, player) => acc + parseInt(player.scoringChance), 0)/100;
+// console.log('Goals per match: ', averageGoalsPerMatch.toFixed(2) )
 
 
 /**
@@ -54,10 +59,10 @@ const averageGoals = averageScoringChance / 100;
 
 // Your code
 
-const findPlayerByName = (name) => {
-    const player = players.find((player) => player.name === name);
-    console.log(player.position);
-};
+// const findPlayerByName = (name) => {
+//     const player = players.find((player) => player.name === name);
+//     console.log(player?.position || `Player "${name}" not found`);
+// };
 
 // findPlayerByName("Ethan");
 
@@ -74,32 +79,21 @@ const findPlayerByName = (name) => {
 
 // Your code
 
-const splitPlayersIntoTeams = () => {
-    const teamA = [];
-    const teamB = [];
+const playGame = () => {
 
-    players.forEach((player, index) => {
-        if (index % 2 === 0) {
-            teamA.push(player);
-        } else {
-            teamB.push(player);
-        }
-    });
+    const randomisedPlayers = players.sort(() => Math.random() - 0.5);
 
-    const teamAScoringChance = teamA.reduce((acc, player) => acc + player.scoringChance, 0);
-    const teamBScoringChance = teamB.reduce((acc, player) => acc + player.scoringChance, 0);
+    const teamA = randomisedPlayers.slice(0, randomisedPlayers.length / 2);
+    const teamB = randomisedPlayers.slice(randomisedPlayers.length / 2);
 
-    const teamAAverageScoringChance = teamAScoringChance / teamA.length;
-    const teamBAverageScoringChance = teamBScoringChance / teamB.length;
+    const teamAScoringChancePerGame = teamA.reduce((acc, player) => acc + parseInt(player.scoringChance), 0)/100;
+    const teamBScoringChancePerGame = teamB.reduce((acc, player) => acc + parseInt(player.scoringChance), 0)/100;
 
-    const teamAAverageGoals = teamAAverageScoringChance / 100;
-    const teamBAverageGoals = teamBAverageScoringChance / 100;
-
-    const teamAScore = Math.round(teamAAverageGoals);
-    const teamBScore = Math.round(teamBAverageGoals);
+    const teamAScore = Math.round(teamAScoringChancePerGame);
+    const teamBScore = Math.round(teamBScoringChancePerGame);
 
     console.log(`Team A score: ${teamAScore}`);
     console.log(`Team B score: ${teamBScore}`);
 }
 
-// splitPlayersIntoTeams();
+playGame();
