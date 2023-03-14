@@ -1,6 +1,5 @@
 // We import the object from the data file. Inside that object there is a function to get players data
-const data = require("./data");
-
+const data = require('./data')
 
 /**
  * Test 1
@@ -12,18 +11,18 @@ const data = require("./data");
  * PLAYER 2...
  */
 
- // Your code
+// Your code
 
- const players = data.getPlayers();
+const players = data.getPlayers()
 
+console.log('-- TEST 1 --')
 
-//     players.map((player, index) => {
-//         console.log(`PLAYER ${index + 1}`);
-//         console.log(`NAME: ${player.name}`);
-//         console.log(`LASTNAME: ${player.lastname}`);
-//         console.log(`POSITION: ${player.position}`);
-//     }
-// );
+players.map((player, index) => {
+  console.log(`PLAYER ${index + 1}`)
+  console.log(`NAME: ${player.name}`)
+  console.log(`LASTNAME: ${player.lastname}`)
+  console.log(`POSITION: ${player.position}`)
+})
 
 /**
  * Test 2
@@ -32,25 +31,28 @@ const data = require("./data");
 
 // Your code
 
-// const playerNames = players
-//     .sort((a, b) => b.name.length - a.name.length)
-//     .map((player) => player.name);
-//     console.log(playerNames);
+console.log('-- TEST 2 --')
 
+const playerNames = players
+  .sort((a, b) => b.name.length - a.name.length)
+  .map((player) => player.name)
+console.log(playerNames)
 
 /**
  * Test 3
  * Write a function to log in the console the average number of goals there will be in a match if all the players in the data play on it
  * scoringChance means how many goals per 100 matches the player will score
- * Example: 10 players play in a match, each of them has a 0.11 scoringChance, the total number of goals will be 1.1 average 
+ * Example: 10 players play in a match, each of them has a 0.11 scoringChance, the total number of goals will be 1.1 average
  * Output example -> Goals per match: 2.19
  */
 
 // Your code
 
-// const averageGoalsPerMatch = players.reduce((acc, player) => acc + parseInt(player.scoringChance), 0)/100;
-// console.log('Goals per match: ', averageGoalsPerMatch.toFixed(2) )
+console.log('-- TEST 3 --')
 
+const averageGoalsPerMatch =
+  players.reduce((acc, player) => acc + parseInt(player.scoringChance), 0) / 100
+console.log('Goals per match: ', averageGoalsPerMatch.toFixed(2))
 
 /**
  * Test 4
@@ -59,41 +61,44 @@ const data = require("./data");
 
 // Your code
 
-// const findPlayerByName = (name) => {
-//     const player = players.find((player) => player.name === name);
-//     console.log(player?.position || `Player "${name}" not found`);
-// };
+console.log('-- TEST 4 --')
 
-// findPlayerByName("Ethan");
+const findPlayerByName = (name) => {
+  const player = players.find((player) => player.name === name)
+  console.log(player?.position || `Player "${name}" not found`)
+}
 
-
+findPlayerByName('Ethan')
 
 /**
  * Test 5
  * Write a function that splits all the players randomly into 2 teams, Team A and Team B. Both teams should have same number of players.
  * The function should log the match score, using the average number of goals like the Test 3 and rounding to the closest integer
  * Example:
- *      Team A has 4 players, 2 with 50 scoringChance and 2 with 70 scoringChance. 
+ *      Team A has 4 players, 2 with 50 scoringChance and 2 with 70 scoringChance.
  *      The average score for the team would be 2.4 (50+50+70+70 / 100), and the closest integer is 2, so the Team A score is 2
  */
 
 // Your code
 
+console.log('-- TEST 5 --')
+
 const playGame = () => {
+  const randomisedPlayers = players.sort(() => Math.random() - 0.5)
 
-    const randomisedPlayers = players.sort(() => Math.random() - 0.5);
+  const teamA = randomisedPlayers.slice(0, randomisedPlayers.length / 2)
+  const teamB = randomisedPlayers.slice(randomisedPlayers.length / 2)
 
-    const teamA = randomisedPlayers.slice(0, randomisedPlayers.length / 2);
-    const teamB = randomisedPlayers.slice(randomisedPlayers.length / 2);
+  const teamAScoringChancePerGame =
+    teamA.reduce((acc, player) => acc + parseInt(player.scoringChance), 0) / 100
+  const teamBScoringChancePerGame =
+    teamB.reduce((acc, player) => acc + parseInt(player.scoringChance), 0) / 100
 
-    const teamAScoringChancePerGame = teamA.reduce((acc, player) => acc + parseInt(player.scoringChance), 0)/100;
-    const teamBScoringChancePerGame = teamB.reduce((acc, player) => acc + parseInt(player.scoringChance), 0)/100;
+  const teamAScore = Math.round(teamAScoringChancePerGame)
+  const teamBScore = Math.round(teamBScoringChancePerGame)
 
-    const teamAScore = Math.round(teamAScoringChancePerGame);
-    const teamBScore = Math.round(teamBScoringChancePerGame);
-
-    console.log(`Team A score: ${teamAScore}`);
-    console.log(`Team B score: ${teamBScore}`);
+  console.log(`Team A score: ${teamAScore}`)
+  console.log(`Team B score: ${teamBScore}`)
 }
 
-playGame();
+playGame()
